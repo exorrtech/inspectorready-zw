@@ -2,15 +2,15 @@
 -- Every organisation, person and detail here is fictional.
 -- Demo login: demo@inspectorready.co.zw / DemoPass123!
 
-DELETE FROM orgs WHERE name = 'Sunrise Learning Centre (Demo)';
+DELETE FROM orgs WHERE name = 'Aeon Learning Centre (Demo)';
 
 INSERT INTO orgs (name, registered_name, reg_number, sector, contact_email)
 VALUES (
-  'Sunrise Learning Centre (Demo)',
-  'Sunrise Learning Centre Trust (Demo)',
+  'Aeon Learning Centre (Demo)',
+  'Aeon Learning Trust (Demo)',
   'DEMO/PBO/0001',
   'School',
-  'admin@sunrise-demo.example'
+  'admin@aeon-demo.example'
 );
 
 INSERT INTO users (org_id, email, password_hash, full_name, role)
@@ -18,7 +18,7 @@ SELECT o.id, 'demo@inspectorready.co.zw',
        '$2b$12$dQ/wke0rwkD4Bwx.uu.myeyHcwqFaQ/zlaTriKNYUObj.WZOw16ry',
        'Demo Administrator', 'owner'
 FROM orgs o
-WHERE o.name = 'Sunrise Learning Centre (Demo)';
+WHERE o.name = 'Aeon Learning Centre (Demo)';
 
 INSERT INTO compliance_items (org_id, code, title, status, evidence_note, evidence_date)
 SELECT o.id, v.code, v.title, v.status, v.evidence_note, v.evidence_date::date
@@ -31,7 +31,7 @@ CROSS JOIN (VALUES
   ('ropa', 'Record of processing activities maintained', 'done',
    'Generated from this register on 10 November 2026.', '2026-11-10'),
   ('privacy_notice', 'Privacy notice published', 'done',
-   'Published at https://sunrise-demo.example/privacy', '2026-05-02'),
+   'Published at https://aeon-demo.example/privacy', '2026-05-02'),
   ('training', 'Staff data-protection training completed', 'in_progress',
    'Whole-school session scheduled for 20 November 2026.', NULL),
   ('breach_register', 'Breach register maintained', 'in_progress',
@@ -41,7 +41,7 @@ CROSS JOIN (VALUES
   ('cross_border_auth', 'Cross-border transfer authorisation obtained', 'in_progress',
    'Payroll data hosted in South Africa; POTRAZ authorisation not yet applied for.', NULL)
 ) AS v(code, title, status, evidence_note, evidence_date)
-WHERE o.name = 'Sunrise Learning Centre (Demo)';
+WHERE o.name = 'Aeon Learning Centre (Demo)';
 
 INSERT INTO processing_activities (
   org_id, data_subject_category, data_description, is_sensitive, purpose, lawful_basis,
@@ -82,4 +82,4 @@ CROSS JOIN (VALUES
    'Locked office; accounting software login')
 ) AS v(data_subject_category, data_description, is_sensitive, purpose, lawful_basis,
        recipients, storage_location, cross_border, retention, security_measures)
-WHERE o.name = 'Sunrise Learning Centre (Demo)';
+WHERE o.name = 'Aeon Learning Centre (Demo)';
