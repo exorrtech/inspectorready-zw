@@ -42,6 +42,7 @@ app.use((req, res, next) => {
 });
 
 const DUMMY_HASH = bcrypt.hashSync('not-a-real-password', 12);
+const DEMO_EMAIL = 'demo@inspectorready.co.zw';
 
 const text = (value, max = 500) =>
   typeof value === 'string' ? value.trim().slice(0, max) : '';
@@ -334,7 +335,7 @@ app.post('/login', loginRateLimit, csrfCheck, async (req, res) => {
 
   loginAttempts.delete(req.rateKey);
   req.session.userId = user.id;
-  req.session.isDemo = false;
+  req.session.isDemo = email === DEMO_EMAIL;
   req.session.csrf = crypto.randomBytes(32).toString('hex');
   req.session.flash = { type: 'success', message: 'Welcome back.' };
   res.redirect('/dashboard');
@@ -343,7 +344,7 @@ app.post('/login', loginRateLimit, csrfCheck, async (req, res) => {
 app.get('/demo', async (req, res) => {
   const { rows } = await pool.query(
     `SELECT id FROM users WHERE email = $1`,
-    ['demo@inspectorready.co.zw']
+    [DEMO_EMAIL]
   );
   if (!rows[0]) {
     req.session.flash = { type: 'error', message: 'The demo account is not seeded.' };
