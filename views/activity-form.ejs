@@ -1,0 +1,115 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+
+<%
+  const inputClass = (key) =>
+    'mt-1 w-full rounded-lg border px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-100 ' +
+    (errors[key] ? 'border-red-400 focus:border-red-500' : 'border-slate-300 focus:border-teal-500');
+  const fieldError = (key) =>
+    errors[key] ? '<p class="mt-1 text-xs text-red-600">' + errors[key] + '</p>' : '';
+%>
+
+<main class="mx-auto max-w-3xl px-4 py-8">
+  <h1 class="text-2xl font-bold tracking-tight"><%= isEdit ? 'Edit processing activity' : 'Add processing activity' %></h1>
+  <p class="mt-2 text-sm text-slate-600">Describe one category of personal data your organisation processes. You can add more activities later.</p>
+
+  <form method="post" action="<%= action %>" class="mt-6 space-y-6">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+    <fieldset class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+      <legend class="px-2 text-base font-semibold">A — Whose data and what data</legend>
+      <div class="mt-3 space-y-4">
+        <label class="block text-sm font-medium text-slate-700">
+          Data subject category
+          <input name="data_subject_category" value="<%= activity.data_subject_category || '' %>" required maxlength="150" placeholder="e.g. Learners and guardians" class="<%= inputClass('data_subject_category') %>">
+          <span class="mt-1 block text-xs font-normal text-slate-500">Who the personal data is about.</span>
+          <%- fieldError('data_subject_category') %>
+        </label>
+
+        <label class="block text-sm font-medium text-slate-700">
+          Description of personal data
+          <textarea name="data_description" required maxlength="1000" rows="3" placeholder="e.g. Name, date of birth, national ID, contact details, medical notes" class="<%= inputClass('data_description') %>"><%= activity.data_description || '' %></textarea>
+          <span class="mt-1 block text-xs font-normal text-slate-500">List the categories of data, not the actual records.</span>
+          <%- fieldError('data_description') %>
+        </label>
+
+        <label class="flex items-start gap-2 text-sm">
+          <input type="checkbox" name="is_sensitive" <%= activity.is_sensitive ? 'checked' : '' %> class="mt-0.5 h-4 w-4 rounded border-slate-300 text-teal-700 focus:ring-teal-500">
+          <span>
+            <span class="font-medium text-slate-800">This includes sensitive personal data</span>
+            <span class="mt-0.5 block text-xs text-slate-500">Health data, children's data, biometrics and similar categories need extra care.</span>
+          </span>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+      <legend class="px-2 text-base font-semibold">B — Why and with whom</legend>
+      <div class="mt-3 space-y-4">
+        <label class="block text-sm font-medium text-slate-700">
+          Purpose of processing
+          <textarea name="purpose" required maxlength="500" rows="2" placeholder="e.g. Enrolment and learner administration" class="<%= inputClass('purpose') %>"><%= activity.purpose || '' %></textarea>
+          <%- fieldError('purpose') %>
+        </label>
+
+        <label class="block text-sm font-medium text-slate-700">
+          Lawful basis
+          <select name="lawful_basis" required class="<%= inputClass('lawful_basis') %>">
+            <option value="">Choose a lawful basis</option>
+            <% LAWFUL_BASES.forEach(function (basis) { %>
+              <option value="<%= basis.value %>" <%= activity.lawful_basis === basis.value ? 'selected' : '' %>><%= basis.label %></option>
+            <% }) %>
+          </select>
+          <%- fieldError('lawful_basis') %>
+        </label>
+
+        <label class="block text-sm font-medium text-slate-700">
+          Recipients or third parties <span class="font-normal text-slate-500">(optional)</span>
+          <textarea name="recipients" maxlength="500" rows="2" placeholder="e.g. Teaching staff; Ministry of Primary and Secondary Education" class="<%= inputClass('recipients') %>"><%= activity.recipients || '' %></textarea>
+          <span class="mt-1 block text-xs font-normal text-slate-500">Who the data is shared with, inside or outside your organisation.</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+      <legend class="px-2 text-base font-semibold">C — Where, how long and how protected</legend>
+      <div class="mt-3 space-y-4">
+        <label class="block text-sm font-medium text-slate-700">
+          Storage location
+          <input name="storage_location" value="<%= activity.storage_location || '' %>" required maxlength="300" placeholder="e.g. Paper files in locked office; school server" class="<%= inputClass('storage_location') %>">
+          <span class="mt-1 block text-xs font-normal text-slate-500">Paper, spreadsheet, cloud service — name it plainly.</span>
+          <%- fieldError('storage_location') %>
+        </label>
+
+        <div>
+          <label class="flex items-start gap-2 text-sm">
+            <input type="checkbox" name="cross_border" <%= activity.cross_border ? 'checked' : '' %> class="mt-0.5 h-4 w-4 rounded border-slate-300 text-teal-700 focus:ring-teal-500">
+            <span>
+              <span class="font-medium text-slate-800">Stored or transferred outside Zimbabwe</span>
+              <span class="mt-0.5 block text-xs text-slate-500">For example, a cloud provider that hosts data in another country.</span>
+            </span>
+          </label>
+          <p class="mt-2 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-800">Cross-border storage or transfer requires separate authorisation from POTRAZ. Check with POTRAZ before relying on it.</p>
+        </div>
+
+        <label class="block text-sm font-medium text-slate-700">
+          Retention period <span class="font-normal text-slate-500">(optional)</span>
+          <input name="retention" value="<%= activity.retention || '' %>" maxlength="300" placeholder="e.g. 7 years after the learner leaves" class="<%= inputClass('retention') %>">
+        </label>
+
+        <label class="block text-sm font-medium text-slate-700">
+          Security measures <span class="font-normal text-slate-500">(optional)</span>
+          <textarea name="security_measures" maxlength="500" rows="2" placeholder="e.g. Locked cabinets; role-based access; nightly backups" class="<%= inputClass('security_measures') %>"><%= activity.security_measures || '' %></textarea>
+        </label>
+      </div>
+    </fieldset>
+
+    <div class="flex flex-wrap items-center gap-3">
+      <button type="submit" class="rounded-lg bg-teal-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-800"><%= isEdit ? 'Save changes' : 'Add activity' %></button>
+      <a href="/activities" class="text-sm text-slate-600 hover:text-slate-900">Cancel</a>
+    </div>
+  </form>
+</main>
+
+<%- include('partials/footer') %>

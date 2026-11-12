@@ -1,0 +1,122 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+
+<main>
+  <section class="mx-auto max-w-6xl px-4 pb-14 pt-12 sm:pt-20">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div>
+        <p class="inline-flex rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-teal-800">
+          POTRAZ inspections are live
+        </p>
+        <h1 class="mt-5 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+          Know exactly what a POTRAZ data-protection inspection asks for — and have it ready.
+        </h1>
+        <p class="mt-5 text-lg leading-relaxed text-slate-600">
+          Answer plain questions about the personal data your organisation holds. InspectorReady ZW builds your Record of Processing Activities and a printable evidence pack, mapped to POTRAZ Form DP1.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/demo" class="rounded-lg bg-teal-700 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-teal-800">
+            Try the live demo
+          </a>
+          <a href="/signup" class="rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50">
+            Create your account
+          </a>
+        </div>
+        <p class="mt-4 text-xs text-slate-500">No card. One account = one organisation. Demo data is fictional.</p>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-xl">
+        <div class="flex items-start justify-between gap-4 border-b border-slate-100 pb-3">
+          <div>
+            <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-400">Record of Processing Activities</p>
+            <p class="mt-0.5 text-sm font-semibold text-slate-900">Sunrise Learning Centre (Demo)</p>
+            <p class="text-xs text-slate-500">School · Harare</p>
+          </div>
+          <span class="rounded-full bg-teal-50 px-2.5 py-1 text-xs font-semibold text-teal-700">50% ready</span>
+        </div>
+        <div class="mt-3 overflow-hidden rounded-lg border border-slate-200">
+          <table class="w-full text-left text-[11px]">
+            <thead class="bg-slate-50 text-slate-500">
+              <tr>
+                <th class="px-2 py-1.5 font-medium">Data subjects</th>
+                <th class="px-2 py-1.5 font-medium">Purpose</th>
+                <th class="px-2 py-1.5 font-medium">Storage</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr>
+                <td class="px-2 py-2">Learners and guardians</td>
+                <td class="px-2 py-2">Enrolment</td>
+                <td class="px-2 py-2">Paper files</td>
+              </tr>
+              <tr>
+                <td class="px-2 py-2">Employees</td>
+                <td class="px-2 py-2">HR and payroll</td>
+                <td class="px-2 py-2">Cloud payroll</td>
+              </tr>
+              <tr>
+                <td class="px-2 py-2">Donors</td>
+                <td class="px-2 py-2">Fundraising</td>
+                <td class="px-2 py-2">Spreadsheet</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-3 flex flex-wrap gap-2 text-[10px]">
+          <span class="rounded bg-slate-100 px-2 py-1 text-slate-600">Sensitive data flagged</span>
+          <span class="rounded bg-amber-50 px-2 py-1 text-amber-700">Cross-border warning</span>
+          <span class="rounded bg-teal-50 px-2 py-1 text-teal-700">Print-ready pack</span>
+        </div>
+        <div class="mt-4 rounded-lg border border-dashed border-slate-300 px-3 py-2 text-[11px] text-slate-500">
+          Print / Save as PDF → a clean ROPA and evidence summary for the inspector.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-white py-12">
+    <div class="mx-auto grid max-w-6xl gap-6 px-4 md:grid-cols-3">
+      <div class="rounded-xl border border-slate-200 p-5">
+        <p class="text-sm font-semibold text-teal-700">01 · Guided register</p>
+        <h2 class="mt-2 text-lg font-semibold">Every category, purpose and storage location in one place</h2>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">Plain fields, not legal jargon. Sensitive data and cross-border transfers are flagged as you go.</p>
+      </div>
+      <div class="rounded-xl border border-slate-200 p-5">
+        <p class="text-sm font-semibold text-teal-700">02 · Readiness score</p>
+        <h2 class="mt-2 text-lg font-semibold">The eight things an inspector asks to see</h2>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">Licence, DPO, ROPA, privacy notice, training, breach register, request register and cross-border authorisation.</p>
+      </div>
+      <div class="rounded-xl border border-slate-200 p-5">
+        <p class="text-sm font-semibold text-teal-700">03 · Print-ready pack</p>
+        <h2 class="mt-2 text-lg font-semibold">One click to a clean ROPA and evidence summary</h2>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">Uses your browser's own print engine. No PDF library, no uploads, nothing extra to break.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <div class="grid gap-8 lg:grid-cols-2">
+      <div>
+        <h2 class="text-xl font-bold">Built around the documentation an inspection expects</h2>
+        <p class="mt-3 text-sm leading-relaxed text-slate-600">
+          Under the Cyber and Data Protection Act [Chapter 12:07] (2021), POTRAZ is the Data Protection Authority. SI 155 of 2024 made Data Controller licensing and DPO appointment mandatory. Regulatory Notice 2 of 2026 announced mandatory compliance inspections from 1 September 2026.
+        </p>
+        <p class="mt-3 text-sm leading-relaxed text-slate-600">
+          The app keeps the paperwork in one place and maps it to the sections of Form DP1. It does not invent requirements: where the law is unclear, check with POTRAZ.
+        </p>
+      </div>
+      <div class="rounded-xl border border-amber-200 bg-amber-50 p-5">
+        <p class="text-sm font-semibold text-amber-900">Important</p>
+        <p class="mt-2 text-sm leading-relaxed text-amber-900">
+          InspectorReady ZW is a documentation tool, not legal advice. It does not replace review by a qualified professional. Penalties under SI 155 of 2024 include a fine not exceeding level 11 (about US$1,000) and/or imprisonment up to 7 years.
+        </p>
+        <a href="/demo" class="mt-4 inline-block rounded-lg bg-amber-900 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-950">
+          See the demo pack
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>

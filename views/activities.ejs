@@ -1,0 +1,74 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+
+<main class="mx-auto max-w-6xl px-4 py-8">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-bold tracking-tight">Processing activities</h1>
+      <p class="mt-1 text-sm text-slate-600">Every category of personal data, why you hold it, where it is stored and how long you keep it.</p>
+    </div>
+    <% if (!isDemo) { %>
+      <a href="/activities/new" class="rounded-lg bg-teal-700 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-800">Add activity</a>
+    <% } %>
+  </div>
+
+  <% if (isDemo) { %>
+    <div class="mt-5 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+      Read-only demo: the add, edit and delete actions are disabled.
+    </div>
+  <% } %>
+
+  <% if (!activities.length) { %>
+    <div class="mt-6 rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center">
+      <h2 class="text-lg font-semibold">No processing activities yet</h2>
+      <p class="mt-2 text-sm text-slate-600">Add the first category of personal data your organisation holds — for example learners, patients, employees, donors or suppliers.</p>
+      <% if (!isDemo) { %>
+        <a href="/activities/new" class="mt-4 inline-block rounded-lg bg-teal-700 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-800">Add your first activity</a>
+      <% } %>
+    </div>
+  <% } else { %>
+    <div class="mt-5 overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+      <table class="w-full text-left text-sm">
+        <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+          <tr>
+            <th class="px-4 py-3 font-medium">Data subjects</th>
+            <th class="px-4 py-3 font-medium">Purpose</th>
+            <th class="px-4 py-3 font-medium">Storage</th>
+            <th class="px-4 py-3 font-medium">Flags</th>
+            <% if (!isDemo) { %><th class="px-4 py-3 text-right font-medium">Actions</th><% } %>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          <% activities.forEach(function (activity) { %>
+            <tr>
+              <td class="px-4 py-3 font-medium"><%= activity.data_subject_category %></td>
+              <td class="px-4 py-3 text-slate-600"><%= activity.purpose %></td>
+              <td class="px-4 py-3 text-slate-600"><%= activity.storage_location %></td>
+              <td class="px-4 py-3">
+                <div class="flex flex-wrap gap-1">
+                  <% if (activity.is_sensitive) { %><span class="rounded bg-red-50 px-2 py-0.5 text-xs text-red-700">Sensitive</span><% } %>
+                  <% if (activity.cross_border) { %><span class="rounded bg-amber-50 px-2 py-0.5 text-xs text-amber-700">Cross-border</span><% } %>
+                  <% if (!activity.is_sensitive && !activity.cross_border) { %><span class="text-xs text-slate-400">—</span><% } %>
+                </div>
+              </td>
+              <% if (!isDemo) { %>
+                <td class="px-4 py-3">
+                  <div class="flex items-center justify-end gap-3">
+                    <a href="/activities/<%= activity.id %>/edit" class="text-sm font-medium text-teal-700 hover:text-teal-800">Edit</a>
+                    <form method="post" action="/activities/<%= activity.id %>/delete" onsubmit="return confirm('Delete this processing activity?');">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                      <button type="submit" class="text-sm font-medium text-red-600 hover:text-red-700">Delete</button>
+                    </form>
+                  </div>
+                </td>
+              <% } %>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</main>
+
+<%- include('partials/footer') %>

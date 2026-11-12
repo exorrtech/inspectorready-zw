@@ -1,0 +1,74 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+
+<main class="mx-auto max-w-2xl px-4 py-10">
+  <h1 class="text-2xl font-bold tracking-tight">Create your organisation account</h1>
+  <p class="mt-2 text-sm text-slate-600">One account covers one organisation. Start with the essentials and update the register as you go.</p>
+
+  <% if (error) { %>
+    <div class="mt-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"><%= error %></div>
+  <% } %>
+
+  <form method="post" action="/signup" class="mt-6 space-y-8 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+    <fieldset class="space-y-4">
+      <legend class="text-base font-semibold">Your account</legend>
+      <label class="block text-sm font-medium text-slate-700">
+        Full name
+        <input name="full_name" value="<%= form.full_name || '' %>" required maxlength="100" autocomplete="name" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100">
+      </label>
+      <label class="block text-sm font-medium text-slate-700">
+        Email
+        <input type="email" name="email" value="<%= form.email || '' %>" required maxlength="200" autocomplete="username" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100">
+      </label>
+      <label class="block text-sm font-medium text-slate-700">
+        Password
+        <input type="password" name="password" required minlength="8" maxlength="200" autocomplete="new-password" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100">
+        <span class="mt-1 block text-xs font-normal text-slate-500">At least 8 characters.</span>
+      </label>
+    </fieldset>
+
+    <fieldset class="space-y-4">
+      <legend class="text-base font-semibold">Your organisation</legend>
+      <label class="block text-sm font-medium text-slate-700">
+        Trading name
+        <input name="org_name" value="<%= form.org_name || '' %>" required maxlength="150" autocomplete="organization" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100">
+      </label>
+      <label class="block text-sm font-medium text-slate-700">
+        Registered legal name <span class="font-normal text-slate-500">(optional)</span>
+        <input name="registered_name" value="<%= form.registered_name || '' %>" maxlength="200" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100">
+        <span class="mt-1 block text-xs font-normal text-slate-500">POTRAZ requires the entity's exact registered name on the licence.</span>
+      </label>
+      <label class="block text-sm font-medium text-slate-700">
+        Registration number <span class="font-normal text-slate-500">(optional)</span>
+        <input name="reg_number" value="<%= form.reg_number || '' %>" maxlength="100" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100">
+      </label>
+      <label class="block text-sm font-medium text-slate-700">
+        Sector
+        <select name="sector" required class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100">
+          <option value="">Choose your sector</option>
+          <% SECTORS.forEach(function (sector) { %>
+            <option value="<%= sector %>" <%= form.sector === sector ? 'selected' : '' %>><%= sector %></option>
+          <% }) %>
+        </select>
+      </label>
+      <label class="block text-sm font-medium text-slate-700">
+        Organisation contact email
+        <input type="email" name="contact_email" value="<%= form.contact_email || '' %>" required maxlength="200" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100">
+      </label>
+    </fieldset>
+
+    <div class="flex flex-wrap items-center gap-3">
+      <button type="submit" class="rounded-lg bg-teal-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-800">Create account</button>
+      <a href="/login" class="text-sm text-slate-600 hover:text-slate-900">Already have an account? Log in</a>
+    </div>
+  </form>
+
+  <p class="mt-5 text-xs leading-relaxed text-slate-500">
+    This tool helps you produce documentation. It is not legal advice, and it does not replace review by a qualified professional.
+  </p>
+</main>
+
+<%- include('partials/footer') %>
