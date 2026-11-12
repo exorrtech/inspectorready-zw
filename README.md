@@ -57,6 +57,7 @@ cp .env.example .env   # add your Neon DATABASE_URL and a SESSION_SECRET
 npm install
 npm run db:setup
 npm run db:seed
+npm test
 npm run dev
 ```
 

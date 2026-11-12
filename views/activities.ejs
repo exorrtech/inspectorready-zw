@@ -9,7 +9,7 @@
       <p class="mt-1 text-sm text-stone-600">Every category of personal data, why you hold it, where it is stored and how long you keep it.</p>
     </div>
     <% if (!isDemo) { %>
-      <a href="/activities/new" class="rounded-lg bg-teal-800 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-900">Add activity</a>
+      <a href="/activities/new" class="rounded-xl bg-teal-800 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-900">Add activity</a>
     <% } %>
   </div>
 
@@ -24,7 +24,7 @@
       <h2 class="text-lg font-semibold">No processing activities yet</h2>
       <p class="mt-2 text-sm text-stone-600">Add the first category of personal data your organisation holds, for example learners, patients, employees, donors or suppliers.</p>
       <% if (!isDemo) { %>
-        <a href="/activities/new" class="mt-4 inline-block rounded-lg bg-teal-800 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-900">Add your first activity</a>
+        <a href="/activities/new" class="mt-4 inline-block rounded-xl bg-teal-800 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-900">Add your first activity</a>
       <% } %>
     </div>
   <% } else { %>
@@ -49,7 +49,7 @@
                 <div class="flex flex-wrap gap-1">
                   <% if (activity.is_sensitive) { %><span class="rounded bg-red-50 px-2 py-0.5 text-xs text-red-700">Sensitive</span><% } %>
                   <% if (activity.cross_border) { %><span class="rounded bg-amber-50 px-2 py-0.5 text-xs text-amber-700">Cross-border</span><% } %>
-                  <% if (!activity.is_sensitive && !activity.cross_border) { %><span class="text-xs text-stone-400">None</span><% } %>
+                  <% if (!activity.is_sensitive && !activity.cross_border) { %><span class="text-xs text-stone-500">None</span><% } %>
                 </div>
               </td>
               <% if (!isDemo) { %>
