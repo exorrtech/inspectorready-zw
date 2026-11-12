@@ -50,7 +50,8 @@ const emailOk = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 const dateOk = (value) => {
   if (!value) return true;
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
-  return !Number.isNaN(new Date(`${value}T00:00:00Z`).getTime());
+  const date = new Date(`${value}T00:00:00Z`);
+  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
 };
 const idFrom = (req) => {
   const id = Number.parseInt(req.params.id, 10);
@@ -552,10 +553,15 @@ app.post('/activities/:id/delete', requireAuth, requireWrite, csrfCheck, async (
   const id = idFrom(req);
   if (!id) return renderError(res, 404, 'Activity not found', 'That processing activity does not exist.');
 
-  await pool.query(
+  const result = await pool.query(
     `DELETE FROM processing_activities WHERE id = $1 AND org_id = $2`,
     [id, req.user.org_id]
   );
+
+  if (!result.rowCount) {
+    return renderError(res, 404, 'Activity not found', 'That processing activity does not exist.');
+  }
+
   req.session.flash = { type: 'success', message: 'Processing activity deleted.' };
   res.redirect('/activities');
 });

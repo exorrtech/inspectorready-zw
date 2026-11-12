@@ -16,7 +16,7 @@ A small database-driven tool that turns plain-English answers into a printable *
 
 ## Demo
 
-- URL: _added after deployment_
+- Live: <https://inspectorready-zw.onrender.com>
 - Email: `demo@inspectorready.co.zw`
 - Password: `DemoPass123!`
 
