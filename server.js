@@ -129,7 +129,10 @@ app.use(async (req, res, next) => {
     [req.session.userId]
   );
   if (!rows[0]) {
-    req.session = null;
+    delete req.session.userId;
+    delete req.session.isDemo;
+    req.session.csrf = crypto.randomBytes(32).toString('hex');
+    res.locals.csrfToken = req.session.csrf;
     return next();
   }
   const row = rows[0];
