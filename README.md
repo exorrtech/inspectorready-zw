@@ -6,6 +6,8 @@ A small database-driven tool that turns plain-English answers into a printable *
 
 > This tool helps you produce documentation. It is not legal advice, and it does not replace review by a qualified professional.
 
+![InspectorReady ZW landing page](docs/landing.png)
+
 ## What it does
 
 - **Sign up** one organisation per account, with the entity details an inspection asks for.
@@ -92,6 +94,8 @@ Open http://localhost:3000.
 ## Print / PDF
 
 Open **Export** and choose **Print / Save as PDF**. The print stylesheet sets A4 landscape, repeats table headers, avoids breaking rows across pages and hides the site navigation.
+
+![Example print pack](docs/export-print.png)
 
 ## Licence
 
