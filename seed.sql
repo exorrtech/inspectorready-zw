@@ -1,4 +1,4 @@
--- InspectorReady ZW — demo seed data
+-- InspectorReady ZW: demo seed data
 -- Every organisation, person and detail here is fictional.
 -- Demo login: demo@inspectorready.co.zw / DemoPass123!
 

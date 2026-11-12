@@ -41,6 +41,14 @@ app.use((req, res, next) => {
   next();
 });
 
+const ITEMS_SQL = `SELECT code, title, status, evidence_note,
+       to_char(evidence_date, 'YYYY-MM-DD') AS evidence_date
+ FROM compliance_items WHERE org_id = $1 ORDER BY id`;
+const STATS_SQL = `SELECT count(*) FILTER (WHERE status = 'done')::int AS done,
+       count(*)::int AS total,
+       coalesce(round(100.0 * count(*) FILTER (WHERE status = 'done')
+         / nullif(count(*), 0)), 0)::int AS score
+ FROM compliance_items WHERE org_id = $1`;
 const DUMMY_HASH = bcrypt.hashSync('not-a-real-password', 12);
 const DEMO_EMAIL = 'demo@inspectorready.co.zw';
 
@@ -370,20 +378,8 @@ app.post('/logout', csrfCheck, (req, res) => {
 app.get('/dashboard', requireAuth, async (req, res) => {
   const orgId = req.user.org_id;
   const [items, stats, activities] = await Promise.all([
-    pool.query(
-      `SELECT code, title, status, evidence_note,
-              to_char(evidence_date, 'YYYY-MM-DD') AS evidence_date
-       FROM compliance_items WHERE org_id = $1 ORDER BY id`,
-      [orgId]
-    ),
-    pool.query(
-      `SELECT count(*) FILTER (WHERE status = 'done')::int AS done,
-              count(*)::int AS total,
-              coalesce(round(100.0 * count(*) FILTER (WHERE status = 'done')
-                / nullif(count(*), 0)), 0)::int AS score
-       FROM compliance_items WHERE org_id = $1`,
-      [orgId]
-    ),
+    pool.query(ITEMS_SQL, [orgId]),
+    pool.query(STATS_SQL, [orgId]),
     pool.query(
       `SELECT id, data_subject_category, purpose, storage_location, cross_border, is_sensitive
        FROM processing_activities WHERE org_id = $1
@@ -582,20 +578,8 @@ app.get('/export', requireAuth, async (req, res) => {
        ORDER BY created_at ASC, id ASC`,
       [orgId]
     ),
-    pool.query(
-      `SELECT code, title, status, evidence_note,
-              to_char(evidence_date, 'YYYY-MM-DD') AS evidence_date
-       FROM compliance_items WHERE org_id = $1 ORDER BY id`,
-      [orgId]
-    ),
-    pool.query(
-      `SELECT count(*) FILTER (WHERE status = 'done')::int AS done,
-              count(*)::int AS total,
-              coalesce(round(100.0 * count(*) FILTER (WHERE status = 'done')
-                / nullif(count(*), 0)), 0)::int AS score
-       FROM compliance_items WHERE org_id = $1`,
-      [orgId]
-    ),
+    pool.query(ITEMS_SQL, [orgId]),
+    pool.query(STATS_SQL, [orgId]),
   ]);
 
   const generatedAt = new Intl.DateTimeFormat('en-GB', {

@@ -1,4 +1,4 @@
--- InspectorReady ZW — schema.sql
+-- InspectorReady ZW: schema.sql
 -- Rebuild from scratch with: npm run db:setup
 -- PostgreSQL 16+. Raw SQL, no ORM.
 

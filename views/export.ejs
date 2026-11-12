@@ -57,14 +57,14 @@
                   <%= activity.purpose %>
                   <span class="mt-1 block text-slate-500">Basis: <%= lawfulLabel(activity.lawful_basis) %></span>
                 </td>
-                <td class="border border-slate-300 px-2 py-2"><%= activity.recipients || '—' %></td>
+                <td class="border border-slate-300 px-2 py-2"><%= activity.recipients || 'None' %></td>
                 <td class="border border-slate-300 px-2 py-2"><%= activity.storage_location %></td>
                 <td class="border border-slate-300 px-2 py-2">
                   <%= activity.cross_border ? 'Yes' : 'No' %>
                   <% if (activity.cross_border) { %><span class="mt-1 block font-semibold text-amber-700">Authorisation required</span><% } %>
                 </td>
-                <td class="border border-slate-300 px-2 py-2"><%= activity.retention || '—' %></td>
-                <td class="border border-slate-300 px-2 py-2"><%= activity.security_measures || '—' %></td>
+                <td class="border border-slate-300 px-2 py-2"><%= activity.retention || 'None' %></td>
+                <td class="border border-slate-300 px-2 py-2"><%= activity.security_measures || 'None' %></td>
               </tr>
             <% }) %>
           </tbody>
@@ -91,8 +91,8 @@
             <tr class="align-top">
               <td class="border border-slate-300 px-2 py-2"><%= item.title %></td>
               <td class="border border-slate-300 px-2 py-2 capitalize"><%= statusLabel(item.status) %></td>
-              <td class="border border-slate-300 px-2 py-2"><%= item.evidence_note || '—' %></td>
-              <td class="border border-slate-300 px-2 py-2"><%= item.evidence_date || '—' %></td>
+              <td class="border border-slate-300 px-2 py-2"><%= item.evidence_note || 'None' %></td>
+              <td class="border border-slate-300 px-2 py-2"><%= item.evidence_date || 'None' %></td>
             </tr>
           <% }) %>
         </tbody>

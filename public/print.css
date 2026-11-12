@@ -52,8 +52,4 @@
   h3 {
     break-after: avoid;
   }
-
-  .page-break {
-    break-before: page;
-  }
 }

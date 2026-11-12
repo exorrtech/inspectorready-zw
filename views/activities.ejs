@@ -22,7 +22,7 @@
   <% if (!activities.length) { %>
     <div class="mt-6 rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center">
       <h2 class="text-lg font-semibold">No processing activities yet</h2>
-      <p class="mt-2 text-sm text-slate-600">Add the first category of personal data your organisation holds — for example learners, patients, employees, donors or suppliers.</p>
+      <p class="mt-2 text-sm text-slate-600">Add the first category of personal data your organisation holds, for example learners, patients, employees, donors or suppliers.</p>
       <% if (!isDemo) { %>
         <a href="/activities/new" class="mt-4 inline-block rounded-lg bg-teal-700 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-800">Add your first activity</a>
       <% } %>
@@ -49,7 +49,7 @@
                 <div class="flex flex-wrap gap-1">
                   <% if (activity.is_sensitive) { %><span class="rounded bg-red-50 px-2 py-0.5 text-xs text-red-700">Sensitive</span><% } %>
                   <% if (activity.cross_border) { %><span class="rounded bg-amber-50 px-2 py-0.5 text-xs text-amber-700">Cross-border</span><% } %>
-                  <% if (!activity.is_sensitive && !activity.cross_border) { %><span class="text-xs text-slate-400">—</span><% } %>
+                  <% if (!activity.is_sensitive && !activity.cross_border) { %><span class="text-xs text-slate-400">None</span><% } %>
                 </div>
               </td>
               <% if (!isDemo) { %>
