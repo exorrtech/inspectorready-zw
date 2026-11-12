@@ -4,28 +4,28 @@
 
 <main class="mx-auto max-w-md px-4 py-12">
   <h1 class="text-2xl font-bold tracking-tight">Log in</h1>
-  <p class="mt-2 text-sm text-slate-600">Access your organisation's compliance register.</p>
+  <p class="mt-2 text-sm text-stone-600">Access your organisation's compliance register.</p>
 
   <% if (error) { %>
     <div class="mt-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"><%= error %></div>
   <% } %>
 
-  <form method="post" action="/login" class="mt-6 space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+  <form method="post" action="/login" class="mt-6 space-y-4 rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-    <label class="block text-sm font-medium text-slate-700">
+    <label class="block text-sm font-medium text-stone-700">
       Email
-      <input type="email" name="email" value="<%= email || '' %>" required maxlength="200" autocomplete="username" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100">
+      <input type="email" name="email" value="<%= email || '' %>" required maxlength="200" autocomplete="username" class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100">
     </label>
-    <label class="block text-sm font-medium text-slate-700">
+    <label class="block text-sm font-medium text-stone-700">
       Password
-      <input type="password" name="password" required maxlength="200" autocomplete="current-password" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100">
+      <input type="password" name="password" required maxlength="200" autocomplete="current-password" class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100">
     </label>
-    <button type="submit" class="w-full rounded-lg bg-teal-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-800">Log in</button>
+    <button type="submit" class="w-full rounded-lg bg-teal-800 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-900">Log in</button>
   </form>
 
   <div class="mt-4 flex flex-wrap items-center justify-between gap-2 text-sm">
-    <a href="/signup" class="text-slate-600 hover:text-slate-900">Create an account</a>
-    <a href="/demo" class="font-medium text-teal-700 hover:text-teal-800">Try the read-only demo</a>
+    <a href="/signup" class="text-stone-600 hover:text-stone-900">Create an account</a>
+    <a href="/demo" class="font-medium text-teal-800 hover:text-teal-900">Try the read-only demo</a>
   </div>
 </main>
 
